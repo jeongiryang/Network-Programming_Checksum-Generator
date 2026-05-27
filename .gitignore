@@ -1,0 +1,4 @@
+checksum
+*.out
+*.exe
+.DS_Store
