@@ -1,3 +1,53 @@
+# 16-bit Checksum Generator
+
+입력 문자열에 even parity를 붙이고, 16-bit 1의 보수 덧셈으로 checksum을 계산하는 C 프로그램입니다.
+
+![C](https://img.shields.io/badge/C-A8B9CC?style=flat-square&logo=c&logoColor=black)
+![Standard Library](https://img.shields.io/badge/Dependencies-C%20Standard%20Library-555555?style=flat-square)
+
+[실행](#실행) · [알고리즘](#계산-규칙) · [소스](main.c) · [기존 테스트](tests/run_tests.sh) · [과제 보고서](#과제-보고서)
+
+## 실행
+
+저장소 루트에서 C11 컴파일러로 빌드합니다.
+
+```bash
+gcc -std=c11 -Wall -Wextra -Werror main.c -o checksum
+echo "abc" | ./checksum
+```
+
+```text
+0111011000111001
+```
+
+프로그램은 checksum 이진 문자열 한 줄을 출력합니다.
+
+## 계산 규칙
+
+1. 첫 입력 줄의 각 문자를 7-bit ASCII로 읽습니다.
+2. 오른쪽에 even parity bit를 붙여 8-bit 값으로 만듭니다.
+3. 두 값을 16-bit word로 묶습니다. 홀수 길이면 오른쪽을 8-bit `0`으로 채웁니다.
+4. carry를 다시 더하는 1의 보수 덧셈 후, 합계의 1의 보수를 출력합니다.
+
+| 입력 | 출력 |
+| --- | --- |
+| `abc` | `0111011000111001` |
+| `A` | `0111110111111111` |
+| `AB` | `0111110101111011` |
+
+## 테스트
+
+기존 Bash 테스트는 위 3개 입력을 컴파일·실행해 예상 출력과 비교합니다.
+
+```bash
+bash tests/run_tests.sh
+```
+
+## 과제 보고서
+
+<details>
+<summary>기존 과제 보고서 펼치기</summary>
+
 # Network-Programming_Checksum-Generator
 
 ## 과제 개요
@@ -92,3 +142,5 @@ bash tests/run_tests.sh
 
 - Initial commit: 과제 요구사항 정리 및 기본 파일 구조 생성
 - Feature commit: HW02 checksum 알고리즘 구현 및 테스트 스크립트 추가
+
+</details>
